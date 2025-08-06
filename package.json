@@ -1,7 +1,7 @@
 {
   "name": "@cballevre/kiwi-ui",
   "private": false,
-  "version": "1.0.0",
+  "version": "0.0.0-development",
   "repository": "git@github.com:cballevre/kiwi-ui.git",
   "author": "cballevre <celestin.ballevre@protonmail.com>",
   "license": "MIT",
