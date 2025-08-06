@@ -1,16 +1,17 @@
 import react from '@vitejs/plugin-react';
-import { defineConfig } from 'vite';
-
 import { resolve } from 'node:path';
+import { defineConfig } from 'vite';
+import dts from 'vite-plugin-dts';
+
 import { peerDependencies } from './package.json';
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), dts()],
   build: {
     target: 'esnext',
     minify: false,
     lib: {
-      entry: resolve(__dirname, 'src/index.js'),
+      entry: resolve(__dirname, 'src/index.ts'),
       fileName: 'index',
       formats: ['es', 'cjs'],
     },
