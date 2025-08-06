@@ -11,8 +11,7 @@
       "biome.json",
       "package.json",
       "README.md",
-      "tsconfig.json",
-      "vite.config.ts"
+      "vite.config.js"
     ],
     "ignoreUnknown": false
   },
