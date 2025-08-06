@@ -2,7 +2,10 @@
   "name": "@cballevre/kiwi-ui",
   "private": false,
   "version": "0.0.0-development",
-  "repository": "git@github.com:cballevre/kiwi-ui.git",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com:cballevre/kiwi-ui.git"
+  },
   "author": "cballevre <celestin.ballevre@protonmail.com>",
   "license": "MIT",
   "type": "module",
@@ -62,5 +65,10 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "release": {
+    "branches": [
+      "main"
+    ]
   }
 }
