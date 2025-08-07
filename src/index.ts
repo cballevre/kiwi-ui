@@ -4,3 +4,5 @@ export { Button } from './button';
 export { Form } from './form';
 export { Input } from './form/input';
 export { SegmentedControl } from './form/segmented-control';
+export { Text } from './typography/text';
+export { Title } from './typography/title';
