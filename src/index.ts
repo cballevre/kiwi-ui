@@ -5,7 +5,10 @@ export { Container } from './container';
 export { Divider } from './divider';
 export { Form } from './form';
 export { Input } from './form/input';
-export { SegmentedControl } from './form/segmented-control';
+export {
+  SegmentedControl,
+  type SegmentedControlOption,
+} from './form/segmented-control';
 export {
   Cell,
   Column,

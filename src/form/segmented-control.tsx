@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { forwardRef, useState } from 'react';
+import { forwardRef, useEffect, useState } from 'react';
 import {
   type Key,
   ToggleButton,
@@ -9,40 +9,84 @@ import {
 import { InputWrapper, type InputWrapperProps } from './input-wrapper';
 
 interface SegmentedControlProps extends InputWrapperProps {
-  options?: string[];
+  options?: Key[] | SegmentedControlOption[];
+  value?: Key;
+  onChange?: (value: Key) => void;
+  className?: string;
+  name: string;
+  inputWrapperProps?: {
+    className?: string;
+  };
+}
+
+export interface SegmentedControlOption {
+  label: string;
+  value: Key;
 }
 
 const SegmentedControl = forwardRef<HTMLDivElement, SegmentedControlProps>(
-  ({ label, description, options }, ref) => {
-    const [value, setValue] = useState<Set<Key> | undefined>(
-      options && options[1] !== undefined ? new Set([options[1]]) : undefined,
-    );
+  (
+    {
+      label,
+      description,
+      options,
+      value,
+      onChange,
+      className,
+      name,
+      inputWrapperProps,
+    },
+    ref,
+  ) => {
+    const [selectedKeys, setSelectedKeys] = useState<Set<Key>>(new Set());
 
-    const handleSelectionChange = (selectedKeys: Set<Key>) => {
-      setValue(selectedKeys);
+    useEffect(() => {
+      if (value !== undefined) {
+        setSelectedKeys(new Set([value]));
+      } else {
+        setSelectedKeys(new Set());
+      }
+    }, [value]);
+
+    const handleSelectionChange = (selected: Set<Key>) => {
+      setSelectedKeys(selected);
+      const selectedValue = Array.from(selected)[0];
+      if (onChange && selectedValue !== undefined) {
+        onChange(selectedValue);
+      }
     };
 
     return (
-      <InputWrapper label={label} description={description}>
+      <InputWrapper
+        {...inputWrapperProps}
+        label={label}
+        description={description}
+        className={clsx(inputWrapperProps?.className, 'max-w-fit')}
+        name={name}
+      >
         <ToggleButtonGroup
           ref={ref}
-          className="tabs tabs-box"
+          className={clsx('tabs tabs-box', className)}
           selectionMode="single"
           disallowEmptySelection
-          selectedKeys={value}
+          selectedKeys={selectedKeys}
           onSelectionChange={handleSelectionChange}
         >
-          {options?.map((option) => (
-            <ToggleButton
-              key={option}
-              id={option}
-              className={({ isSelected }) =>
-                clsx('tab', isSelected && 'tab-active')
-              }
-            >
-              {option}
-            </ToggleButton>
-          ))}
+          {options?.map((option) => {
+            const value = option instanceof Object ? option.value : option;
+            const label = option instanceof Object ? option.label : option;
+            return (
+              <ToggleButton
+                key={value}
+                id={value}
+                className={({ isSelected }) =>
+                  clsx('tab', isSelected && 'tab-active')
+                }
+              >
+                {label}
+              </ToggleButton>
+            );
+          })}
         </ToggleButtonGroup>
       </InputWrapper>
     );
