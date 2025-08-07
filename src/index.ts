@@ -1,6 +1,7 @@
 import './global.css';
 
 export { Button } from './button';
+export { Container } from './container';
 export { Form } from './form';
 export { Input } from './form/input';
 export { SegmentedControl } from './form/segmented-control';
