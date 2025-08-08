@@ -1,28 +1,39 @@
+import clsx from 'clsx';
 import type { FC, PropsWithChildren } from 'react';
-import { Label, Text } from 'react-aria-components';
+import { Label } from 'react-aria-components';
+
+import { Text } from '../typography/text';
 
 interface InputWrapperProps {
+  name: string;
   label: string;
   description?: string;
-  error?: string;
+  error?: string | boolean;
   required?: boolean;
+  className?: string;
 }
 
 const InputWrapper: FC<PropsWithChildren<InputWrapperProps>> = ({
+  name,
   children,
   label,
   description,
   error,
+  required = false,
+  className,
 }) => {
   return (
-    <div className="flex flex-col gap-2 max-w-fit">
-      <Label>{label}</Label>
-      {description ? <Text slot="description">{description}</Text> : null}
-      {children}
-      {error ? (
-        <Text slot="error" className="text-red-600">
-          {error}
-        </Text>
+    <div className={clsx('flex flex-col items-start', className)}>
+      <Label className="text-sm font-medium text-gray-900" htmlFor={name}>
+        {label}
+        {required ? <span className="text-red-500"> *</span> : null}
+      </Label>
+      {description ? (
+        <Text className="text-xs text-gray-500">{description}</Text>
+      ) : null}
+      <div className="my-2">{children}</div>
+      {typeof error === 'string' ? (
+        <Text className="text-xs text-red-500">{error}</Text>
       ) : null}
     </div>
   );
