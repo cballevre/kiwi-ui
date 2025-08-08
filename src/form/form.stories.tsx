@@ -6,6 +6,7 @@ import { Input } from './input';
 
 const meta = {
   title: 'Form/Form',
+  tags: ['autodocs'],
   component: Form,
 } satisfies Meta<typeof Form>;
 
@@ -15,11 +16,22 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   render: (args) => (
-    <Form {...args}>
-      <Input type="text" label="Name" />
-      <Input type="number" label="Age" />
-      <Input type="time" label="Date" />
-      <Input type="date" label="Time" />
+    <Form {...args} className="max-w-sm mx-auto">
+      <Input
+        type="email"
+        name="email"
+        label="Your email"
+        required
+        placeholder="name@kiwi-ui.com"
+        inputWrapperProps={{ className: 'mb-4' }}
+      />
+      <Input
+        type="password"
+        name="password"
+        label="Your password"
+        required
+        inputWrapperProps={{ className: 'mb-4' }}
+      />
       <Button type="submit" label="Submit" />
     </Form>
   ),
