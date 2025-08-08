@@ -4,3 +4,7 @@
     light --default,
     emerald;
 }
+
+.focus-readability {
+  max-width: 65ch;
+}
