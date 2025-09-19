@@ -42,7 +42,12 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           id={name}
           ref={ref}
           type={type}
-          className={clsx('input', error && 'input-error', className)}
+          className={clsx(
+            'input',
+            error && 'input-error',
+            className,
+            type === 'time' && 'min-w-21',
+          )}
           placeholder={placeholder}
           required={required}
           {...props}
